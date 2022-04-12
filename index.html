@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <link rel='icon' href='images/favicon.svg'>
+    <link rel="noreferrer stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body onload="pageLoaded()">
+    <input type="checkbox" id="sidebar_check"/>
+    <label for="sidebar_check" class="sidebar_cog">
+        <img src="images/cog.svg" alt="Cog svg"/>
+    </label>
+    <nav class="sidebar">
+        <div style="margin-top: 6em">
+            <span>Set default greeting message</span>
+            <form autocomplete="off" id="greetForm" action="#" onsubmit="setGreeting(); return false">
+                <input type="text" name="greet" maxlength="64" placeholder="Default greeting" />
+            </form>
+        </div>
+        <div>
+            <span>Set search engine. Example/default: https://duckduckgo.com</span>
+        </div>
+        <div class="flex">
+            <form autocomplete="off" id="searchSetterForm" action="#" onsubmit="setSearch(); return false">
+                <input type="text" name="searchenginebox" maxlength="64" placeholder="Timezone"/>
+            </form>
+            <div class="container">
+                <div style="margin-left: 0.5em;">
+                    <img 
+                    src="images/lens.svg"
+                    alt="Lens svg" 
+                    onClick="setSearch('https://duckduckgo.com')">
+                        <span class="hint">Set search engine to default</span>
+                    </img>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span>Set timezone. Example/default: Europe/Brussels</span>
+        </div>
+        <div class="flex">
+            <form autocomplete="off" id="tzForm" action="#" onsubmit="setTimezone(); return false">
+                <input type="text" name="tzbox" maxlength="64" placeholder="Timezone"/>
+            </form>
+            <div class="container">
+                <div style="margin-left: 0.5em;">
+                    <img 
+                    src="images/clock.svg"
+                    alt="Clock svg" 
+                    onClick="setTimezone('Europe/Brussels')">
+                        <span class="hint">Set timezone to default</span>
+                    </img>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span>Choose hour format</span>
+            <select name="hourFormat" onchange="setHourFormat()">
+               <option value="false">24:00</option>
+               <option value="true">12:00 PM</option>
+            </select>
+        </div>
+        <div>
+            <span>Set background URL. Plus chooses file locally</span>
+        </div>
+        <div class="flex">
+            <form 
+                autocomplete="off"
+                id="background"
+                action="#" 
+                onsubmit="setBackgroundFromText(); return false"
+            >
+                <input type="text" name="bg" maxlength="255" placeholder="Image URL here"/>
+            </form>
+            <div class="container">
+                <input
+                        id="input"
+                        onchange="bgChange()"
+                        style="display: none"
+                        type="file">
+                    <label for="input">
+                        <img src="images/plus.svg" alt="Plus svg">
+                            <span class="hint">Set wallpaper</span>
+                        </img>
+                    </label>
+                </input>
+            </div>
+            <div class="container">
+                <div style="margin-left: 0.5em;">
+                    <img 
+                    src="images/cross.svg"
+                    alt="Cross svg" 
+                    onClick="setBackground('var(--backgroundImg)')">
+                        <span class="hint">Use random image for background</span>
+                    </img>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div id="greeting">Hello there</div>
+        <div id="time">00:00</div>
+        <div style="float: center">
+            <form  autocomplete="off" method="get" id="search" action="http://duckduckgo.com/">
+                <input type="text" name="q" maxlength="255" placeholder="Web search" />
+            </form>
+        </div>
+        <ul id="bookmarks">
+            <li>
+                <a
+                    href="https://reddit.com"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Link to reddit"
+                    >
+                    <img src="images/reddit.svg" alt="Reddit svg">
+                        <span class="hint">Reddit</span>
+                    </img>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://github.com" 
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Link to github"
+                    >
+                    <img src="images/github.svg" alt="Github svg">
+                        <span class="hint">Github</span>
+                    </img>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://gitlab.com"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Link to gitlab"
+                    >
+                    <img src="images/gitlab.svg" alt="Gitlab svg">
+                        <span class="hint">Gitlab</span>
+                    </img>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://youtube.com"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Link to youtube"
+                    >
+                    <img src="images/youtube.svg" alt="Youtube svg">
+                        <span class="hint">Youtube</span>
+                    </img>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</body>
+
+</html>
