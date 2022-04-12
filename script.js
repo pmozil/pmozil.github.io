@@ -1,5 +1,52 @@
 setInterval(displayClock, 100);
 
+const defaultMarks = [
+    {"name": "Reddit",
+     "href":"https://reddit.com",
+     "icon": "images/reddit.svg",
+     "aria-label":"Link to reddit",
+    },
+    {"name": "Github",
+     "icon": "images/github.svg",
+     "href":"https://github.com",
+     "aria-label":"Link to github",
+    },
+    {"name": "Gitlab",
+     "icon": "images/gitlab.svg",
+     "href":"https://gitlab.com",
+     "aria-label":"Link to gitlab",
+    },
+    {"name": "Youtube",
+     "icon": "images/youtube.svg",
+     "href":"https://youtube.com",
+     "aria-label":"Link to gitlab",
+    }
+]
+
+function setBookmarks() {
+    let marksStr = localStorage.getItem("bookmarks");
+    let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;
+    let bookmarks = document.querySelector("#bookmarks");
+    for(var i=0; i<marks.length; i++) {
+        let mark = document.createElement('li');
+        mark.innerHTML=`
+            <a
+                class="bookmark"
+                href="${marks[i]["href"]}"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="${marks[i]["aria-label"]}"
+                >
+                <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
+                    <span class="hint">${marks[i]["name"]}</span>
+                </img>
+            </a>
+
+            `;
+        bookmarks.appendChild(mark);
+    }
+}
+
 if(localStorage.getItem("greet")==null) {
     localStorage.setItem("greet", "Hi there!");
 }
@@ -109,6 +156,7 @@ function bgChange() {
 
 function pageLoaded() {
     setBackground();
+    setBookmarks();
     document.querySelector("#greeting").textContent = localStorage.getItem("greet");
     document.querySelector("#search").action = localStorage.getItem("search");
 }
