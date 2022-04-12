@@ -4,6 +4,8 @@
 
 Just set `https://travlesh.github.io/` as your firefox start page (Settings -> Home -> Homepage and new windows)
 
+You can also use [new tab override](https://duckduckgo.com/?q=new+tab+override) to override new tabs with `localhost`
+
 # Hosting page locally
 
 For now install lighttpd
@@ -28,4 +30,8 @@ And then:
 
 Now just set `localhost` as your homepage
 
-You can also use [new tab override](https://duckduckgo.com/?q=new+tab+override) to override new tabs with `localhost`
+# Screenshots
+
+![](screenshots/no-menu.png)
+
+![](screenshots/menu.png)
