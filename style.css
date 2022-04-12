@@ -9,6 +9,7 @@
 }
 
 body {
+    font-family: "Roboto";
     background: var(--backgroundColor);
     background-size: cover !important;
     margin: 0%;
