@@ -23,6 +23,11 @@ const defaultMarks = [
     }
 ]
 
+function setBookmarkList(bookmarkList) {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarkList));
+    return JSON.stringify(bookmarkList);
+}
+
 function setBookmarks() {
     let marksStr = localStorage.getItem("bookmarks");
     let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;

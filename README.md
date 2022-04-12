@@ -2,7 +2,7 @@
 
 # Installation
 
-Just set `https://pmozil.github.io/` as your firefox start page (Settings -> Home -> Homepage and new windows)
+Just set `https://travlesh.github.io/` as your firefox start page (Settings -> Home -> Homepage and new windows)
 
 # Hosting page locally
 
