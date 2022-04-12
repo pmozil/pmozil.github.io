@@ -1,7 +1,10 @@
 # Startpage - a cozy home page for web browsers
 
 # Installation
-I'm sorry, I'll soon make this a browser extension so that the installation would be easier
+
+Just set `https://pmozil.github.io/` as your firefox start page (Settings -> Home -> Homepage and new windows)
+
+# Hosting page locally
 
 For now install lighttpd
 
