@@ -23,8 +23,31 @@ const defaultMarks = [
     }
 ]
 
-function setBookmarkList(bookmarkList) {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarkList));
+if(localStorage.getItem("greet")==null) {
+    localStorage.setItem("greet", "Hi there!");
+}
+if(localStorage.getItem("search")==null) {
+    localStorage.setItem("search", "https://duckduckgo.com");
+}
+if(localStorage.getItem("background")==null) {
+    localStorage.setItem("background", "var(--backgroundImg)");
+}
+if(localStorage.getItem("hour12")==null) {
+    localStorage.setItem("hour12", false);
+}
+if(localStorage.getItem("timezone")==null) {
+    localStorage.setItem("timezone", "Europe/Brussels");
+}
+if(localStorage.getItem("bookmarks")==null) {
+    localStorage.setItem("bookmarks", JSON.stringify(defaultMarks));
+}
+
+function setBookmarkList(bookmarkListString=null) {
+    let marks = bookmarkListString;
+    if(marks=null) {
+        return localStorage.getItem("bookmarks");
+    }
+    localStorage.setItem("bookmarks", bookmarkList);
     return JSON.stringify(bookmarkList);
 }
 
@@ -52,20 +75,61 @@ function setBookmarks() {
     }
 }
 
-if(localStorage.getItem("greet")==null) {
-    localStorage.setItem("greet", "Hi there!");
+function getSettingsJSONString() {
+    let greet = localStorage.getItem("greet");
+    let search = localStorage.getItem("search");
+    let background = localStorage.getItem("background");
+    let hourFormat = localStorage.getItem("hour12");
+    let timezone = localStorage.getItem("timezone");
+    let bookmarks = localStorage.getItem("bookmarks");
+    let settings = {
+        "greet": greet,
+        "search": search,
+        "hour12": hourFormat,
+        "timezone": timezone,
+        "bookmarks": bookmarks,
+        "background": background
+    }
+    return JSON.stringify(settings);
 }
-if(localStorage.getItem("search")==null) {
-    localStorage.setItem("search", "https://duckduckgo.com");
+
+function settingsFromJSONStr(settingsStr=null){
+    let str = settingsStr;
+    if(str==null){
+        str = getSettingsJSONString();
+    }
+    let settingsJSON = JSON.parse(str);
+    settingsFromJSON(settingsJSON);
 }
-if(localStorage.getItem("background")==null) {
-    localStorage.setItem("background", "var(--backgroundImg)");
+
+function settingsFromJSON(settingsJSON=null) {
+    let settings = settingsJSON;
+    if(settings==null) {
+        settings=JSON.parse(getSettingsJSONString());
+    }
+    for(var key in settings) {
+        localStorage.setItem(key, settings[key]);
+    }
+    location.reload();
 }
-if(localStorage.getItem("hour12")==null) {
-    localStorage.setItem("hour12", false);
+
+function settingsOptionsClicked() {
+    let check = document.querySelector("#sidebar_check");
+    check.checked = false;
+    let par = document.querySelector("#settingsParagraph");
+    let base = JSON.parse(getSettingsJSONString());
+    let str = "";
+    base["bookmarks"] = JSON.stringify(JSON.parse(base["bookmarks"]), null, 4);
+    base["bookmarks"] = base["bookmarks"].replace(", ", ",<br/>");
+    for (var key in base) {
+        str += `<span><b>${key}</b>: ${base[key]}</span><br/>\n`
+    }
+    par.innerHTML = str;
 }
-if(localStorage.getItem("timezone")==null) {
-    localStorage.setItem("timezone", "Europe/Brussels");
+
+function settingsOptionClosed() {
+    let par = document.querySelector("#settingsParagraph");
+    par.innerHTML = "";
 }
 
 function displayClock() {
