@@ -137,9 +137,9 @@
                 autocomplete="off"
                 id="jsonURLForm"
                 action="#"
-                onsubmit="settingsFromURL();"
+                onsubmit="settingsFromURL(); return false"
                 >
-                <input type="text" name="jsonURL" maxlength=511" placeholder="JSON URL here"/>
+                <input type="text" name="jsonURL" placeholder="JSON URL here"/>
             </form>
         </div>
         <span>Danger zone</span>

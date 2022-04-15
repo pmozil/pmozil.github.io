@@ -49,6 +49,7 @@ function setDefaults() {
     localStorage.setItem("hour12", false);
     localStorage.setItem("timezone", "Europe/Brussels");
     localStorage.setItem("bookmarks", JSON.stringify(defaultMarks));
+    location.reload();
 }
 
 function setBookmarkList(bookmarkListString=null) {
@@ -123,22 +124,22 @@ function settingsFromJSON(settingsJSON=null) {
 }
 
 function settingsFromURL() {
-    let seattingsURL = document.getElementsByName("jsonURL")[0].value;
+    let settingsURL = document.getElementsByName("jsonURL")[0].value;
     document.getElementsByName("jsonURL")[0].value = '';
     let settingsStr;
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', url, true);
+    xhr.open('GET', settingsURL, true);
 
     xhr.onload = function() {
-        if(xhr.status == 404)
+        if(xhr.status == 404){
             settingsStr = getSettingsJSONString();
+        }
         settingsStr = this.response;
+        settingsFromJSONStr(settingsStr);
     }
 
     xhr.send();
-
-    settingsFromJSONStr(settingsStr);
 }
 
 function settingsOptionsClicked() {
