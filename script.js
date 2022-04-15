@@ -42,6 +42,15 @@ if(localStorage.getItem("bookmarks")==null) {
     localStorage.setItem("bookmarks", JSON.stringify(defaultMarks));
 }
 
+function setDefaults() {
+    localStorage.setItem("greet", "Hi there!");
+    localStorage.setItem("search", "https://duckduckgo.com");
+    localStorage.setItem("background", "var(--backgroundImg)");
+    localStorage.setItem("hour12", false);
+    localStorage.setItem("timezone", "Europe/Brussels");
+    localStorage.setItem("bookmarks", JSON.stringify(defaultMarks));
+}
+
 function setBookmarkList(bookmarkListString=null) {
     let marks = bookmarkListString;
     if(marks=null) {
@@ -111,6 +120,25 @@ function settingsFromJSON(settingsJSON=null) {
         localStorage.setItem(key, settings[key]);
     }
     location.reload();
+}
+
+function settingsFromURL() {
+    let seattingsURL = document.getElementsByName("jsonURL")[0].value;
+    document.getElementsByName("jsonURL")[0].value = '';
+    let settingsStr;
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', url, true);
+
+    xhr.onload = function() {
+        if(xhr.status == 404)
+            settingsStr = getSettingsJSONString();
+        settingsStr = this.response;
+    }
+
+    xhr.send();
+
+    settingsFromJSONStr(settingsStr);
 }
 
 function settingsOptionsClicked() {
@@ -200,7 +228,7 @@ function setBackground(val=null){
 function setBackgroundFromText(){
     let url = document.getElementsByName('bg')[0].value;
     document.getElementsByName('bg')[0].value = '';
-    localStorage.setItem("background", url);
+    localStorage.setItem("background", `url(${url})`);
     setBackground();
 }
 

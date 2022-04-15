@@ -35,7 +35,6 @@
                     class="copyButton">
                     <span class="hint" style="left: 3em">Copy settings to clipboard</span>
                 </img>
-            </button>
             <p id="settingsParagraph"/>
         </div>
     </div>
@@ -132,6 +131,21 @@
             class="settingsButton">
             <span>Open settings</span>
         </label>
+        <span style="margin-top: 1em;">Import settings from URL</span>
+        <div>
+            <form
+                autocomplete="off"
+                id="jsonURLForm"
+                action="#"
+                onsubmit="settingsFromURL();"
+                >
+                <input type="text" name="jsonURL" maxlength=511" placeholder="JSON URL here"/>
+            </form>
+        </div>
+        <span>Danger zone</span>
+        <div>
+            <button onclick="setDefaults()">Reset all settings</button>
+        </div>
     </nav>
     <div class="content">
         <div id="greeting">Hello there</div>
