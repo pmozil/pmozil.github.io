@@ -11,32 +11,10 @@
 
 <body onload="pageLoaded()">
     <input type="checkbox" id="sidebar_check"/>
-    <input type="checkbox" id="settings_check"/>
     <label for="sidebar_check" class="sidebar_cog">
         <img src="images/cog.svg" alt="Cog svg"/>
     </label>
-    <div class="overlay">
-        </div>
-    <div class="jsonSettings">
-        <h2>Settings Viewer</h2>
-
-        <label 
-            onclick="async () => {settingsOptionsClosed()}"
-            for="settings_check" 
-            class="settingsCross">
-            <img src="images/cross.svg" alt="Cross svg"/>
-        </label>
-
-        <div class="text">
-                <img
-                    src="images/clipboard.svg" 
-                    alt="Copy to clipboard svg"
-                    onclick="navigator.clipboard.writeText(getSettingsJSONString());"
-                    class="copyButton">
-                    <span class="hint" style="left: 3em">Copy settings to clipboard</span>
-                </img>
-            <p id="settingsParagraph"/>
-        </div>
+    <div id="settings_div">
     </div>
     <nav class="sidebar">
         <div style="margin-top: 4em">
@@ -125,12 +103,9 @@
             </div>
         </div>
         <span>JSON settings options</span>
-        <label 
-            onclick="settingsOptionsClicked()"
-            for="settings_check" 
-            class="settingsButton">
-            <span>Open settings</span>
-        </label>
+        <button onclick="openSettings()">
+            Open settings
+        </button>
         <span style="margin-top: 1em;">Import settings from URL</span>
         <div>
             <form

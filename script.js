@@ -148,12 +148,57 @@ function settingsOptionsClicked() {
     let par = document.querySelector("#settingsParagraph");
     let base = JSON.parse(getSettingsJSONString());
     let str = "";
-    base["bookmarks"] = JSON.stringify(JSON.parse(base["bookmarks"]), null, 4);
-    base["bookmarks"] = base["bookmarks"].replace(", ", ",<br/>");
+    base["bookmarks"] = "<br/>" + base["bookmarks"].replaceAll("},", "},<br/>") + "<br/>";
+    console.log(base["bookmarks"]);
     for (var key in base) {
         str += `<span><b>${key}</b>: ${base[key]}</span><br/>\n`
     }
     par.innerHTML = str;
+}
+
+function openBookmarksEditor() {
+    document.getElementById("settings_div").innerHTML = `
+        <div class="overlay" onclick="closeSettings()">
+        </div>
+        <div class="centerBox">
+            <h2>Bookmarks Editor</h2>
+            <img 
+                onclick="closeSettings()"
+                class="settingsCross">
+                src="images/cross.svg" alt="Cross svg"/>
+        </div>
+    `;
+}
+
+function openSettings() {
+    document.getElementById("settings_div").innerHTML = `
+        <div class="overlay" onclick="closeSettings()">
+        </div>
+        <div class="centerBox">
+            <h2>Settings Viewer</h2>
+
+            <img 
+                src="images/cross.svg"
+                onclick="closeSettings()"
+                class="settingsCross">
+                alt="Cross svg"/>
+            <div class="text">
+                    <img
+                        src="images/clipboard.svg" 
+                        alt="Copy to clipboard svg"
+                        onclick="navigator.clipboard.writeText(getSettingsJSONString());"
+                        class="copyButton">
+                        <span class="hint" style="left: 3em">Copy settings to clipboard</span>
+                    </img>
+                <p id="settingsParagraph"/>
+            </div>
+        </div>
+    `;
+    settingsOptionsClicked();
+}
+
+function closeSettings() {
+    document.getElementById("settings_div").innerHTML = '';
 }
 
 function settingsOptionClosed() {
