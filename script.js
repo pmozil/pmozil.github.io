@@ -164,10 +164,28 @@ function openBookmarksEditor() {
             <h2>Bookmarks Editor</h2>
             <img 
                 onclick="closeSettings()"
-                class="settingsCross">
+                class="settingsCross"
                 src="images/cross.svg" alt="Cross svg"/>
+            <ul id="bookmarksEditorList" class="bookmarksEditor"/>
         </div>
     `;
+
+    let marksStr = localStorage.getItem("bookmarks");
+    let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;
+    let bookmarks = document.querySelector("#bookmarksEditorList");
+    for(var i=0; i<marks.length; i++) {
+        let mark = document.createElement('li');
+        mark.innerHTML=`
+            <div>
+                <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg"/>
+                <div>
+                    <span>${marks[i]["name"]}</span>
+                    <img src="images/arrow.svg"/>
+                </div>
+            </div>
+            `;
+        bookmarks.appendChild(mark);
+    }
 }
 
 function openSettings() {

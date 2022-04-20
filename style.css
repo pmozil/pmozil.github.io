@@ -96,6 +96,46 @@ body {
     margin: 1em 2em;
 }
 
+.bookmarksEditor {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding-bottom: 1em;
+    overflow-y: auto;
+}
+
+.bookmarksEditor li {
+    margin-bottom: 1em;
+}
+
+.bookmarksEditor  * img {
+    width: 2em;
+}
+
+.bookmarksEditor li div {
+    width: auto;
+    margin-right: 2em;
+    display: flex;
+    align-items: flex-start;
+}
+
+.bookmarksEditor li div div {
+    width: fit-content;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    background: #4c566a;
+    margin-left: 0.6em;
+    margin-top: 0.2em;
+    height: 1.2em;
+    padding-top: 0.2em;
+    border-radius: 6px;
+}
+
+.bookmarksEditor li div div img{
+    width: 1em;
+    margin-left: 1em;
+}
+
 .settingsCross {
     position: absolute;
     left: 95%;
