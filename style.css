@@ -129,11 +129,24 @@ body {
     height: 1.2em;
     padding-top: 0.2em;
     border-radius: 6px;
+    box-shadow: 1px 1px 2px var(--fgRGBA);
 }
 
 .bookmarksEditor li div div img{
     width: 1em;
     margin-left: 1em;
+    transition: 300ms all;
+}
+
+.bookmarksEditor li div div img:hover{
+    transform: rotate(90deg);
+}
+
+.bookmarkSettings {
+    visibility: hidden;
+    width: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .settingsCross {

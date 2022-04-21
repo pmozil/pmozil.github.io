@@ -182,6 +182,8 @@ function openBookmarksEditor() {
                     <span>${marks[i]["name"]}</span>
                     <img src="images/arrow.svg"/>
                 </div>
+                <div class=bookmarkSettings>
+                </div>
             </div>
             `;
         bookmarks.appendChild(mark);
