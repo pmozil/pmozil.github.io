@@ -68,18 +68,21 @@ function setBookmarks() {
     for(var i=0; i<marks.length; i++) {
         let mark = document.createElement('li');
         mark.innerHTML=`
-            <a
-                class="bookmark"
-                href="${marks[i]["href"]}"
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label="${marks[i]["aria-label"]}"
-                >
-                <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
-                    <span class="hint">${marks[i]["name"]}</span>
-                </img>
-            </a>
-
+            <div class="bookmark_container">
+                <a
+                    href="${marks[i]["href"]}"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="${marks[i]["aria-label"]}"
+                    >
+                    <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
+                        <span class="hint">${marks[i]["name"]}</span>
+                    </img>
+                </a>
+                <img
+                    class="bookmark_option"
+                    src="images/cog.svg"/>
+            </div>
             `;
         bookmarks.appendChild(mark);
     }
@@ -156,40 +159,6 @@ function settingsOptionsClicked() {
     par.innerHTML = str;
 }
 
-function openBookmarksEditor() {
-    document.getElementById("settings_div").innerHTML = `
-        <div class="overlay" onclick="closeSettings()">
-        </div>
-        <div class="centerBox">
-            <h2>Bookmarks Editor</h2>
-            <img 
-                onclick="closeSettings()"
-                class="settingsCross"
-                src="images/cross.svg" alt="Cross svg"/>
-            <ul id="bookmarksEditorList" class="bookmarksEditor"/>
-        </div>
-    `;
-
-    let marksStr = localStorage.getItem("bookmarks");
-    let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;
-    let bookmarks = document.querySelector("#bookmarksEditorList");
-    for(var i=0; i<marks.length; i++) {
-        let mark = document.createElement('li');
-        mark.innerHTML=`
-            <div>
-                <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg"/>
-                <div>
-                    <span>${marks[i]["name"]}</span>
-                    <img src="images/arrow.svg"/>
-                </div>
-                <div class=bookmarkSettings>
-                </div>
-            </div>
-            `;
-        bookmarks.appendChild(mark);
-    }
-}
-
 function openSettings() {
     document.getElementById("settings_div").innerHTML = `
         <div class="overlay" onclick="closeSettings()">
@@ -200,7 +169,7 @@ function openSettings() {
             <img 
                 src="images/cross.svg"
                 onclick="closeSettings()"
-                class="settingsCross">
+                class="settingsCross"
                 alt="Cross svg"/>
             <div class="text">
                     <img
