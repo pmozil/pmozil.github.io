@@ -68,21 +68,17 @@ function setBookmarks() {
     for(var i=0; i<marks.length; i++) {
         let mark = document.createElement('li');
         mark.innerHTML=`
-            <div class="bookmark_container">
-                <a
-                    href="${marks[i]["href"]}"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label="${marks[i]["aria-label"]}"
-                    >
-                    <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
-                        <span class="hint">${marks[i]["name"]}</span>
-                    </img>
-                </a>
-                <img
-                    class="bookmark_option"
-                    src="images/cog.svg"/>
-            </div>
+            <a
+                class="bookmark_link"
+                href="${marks[i]["href"]}"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="${marks[i]["aria-label"]}"
+                >
+                <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
+                    <span class="hint">${marks[i]["name"]}</span>
+                </img>
+            </a>
             `;
         bookmarks.appendChild(mark);
     }
