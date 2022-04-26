@@ -61,11 +61,20 @@ function setBookmarkList(bookmarkListString=null) {
     return JSON.stringify(bookmarkList);
 }
 
+function toggleOptions() {
+    var options = document.querySelectorAll('.bookmark_options');
+    for (var i = 0; i < options.length; i++) {
+        options[i].classList.toggle('active');
+    }
+}
+
 function setBookmarks() {
     let marksStr = localStorage.getItem("bookmarks");
     let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;
+    let bookmarks = document.getElementById("bookmarks");
+    let bookmark_delete_list = document.getElementById("bookmark_deletes");
+    let bookmark_edit_list = document.getElementById("bookmark_editors");
     for(var i=0; i<marks.length; i++) {
-        let bookmarks = document.getElementById("bookmarks");
         let mark = document.createElement('li');
         mark.innerHTML=`
             <a
@@ -81,13 +90,12 @@ function setBookmarks() {
             </a>`;
 
         bookmarks.appendChild(mark);
-        let bookmarks_delete_list = document.getElementById("bookmark_deletes");
         let minus = document.createElement('li');
-        minus.innerHTML=`
-            <img src="images/minus.svg" alt="Minus svg">
-                <span class="hint">Delete bookmark</span>
-            </img>`;
-        bookmarks_delete_list.appendChild(minus);
+        minus.innerHTML=`<img src="images/minus.svg" alt="Minus svg"/>`;
+        bookmark_delete_list.appendChild(minus);
+        let edit = document.createElement('li');
+        edit.innerHTML=`<img src="images/edit.svg" alt="Edit svg"/>`;
+        bookmark_edit_list.appendChild(edit);
     }
 }
 

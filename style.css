@@ -45,10 +45,10 @@ body {
 
 .bookmark_options {
     height: 0;
-    margin: 0;
     transition: 300ms all;
     visibility: hidden;
-    padding: 0%;
+    padding: 0;
+    margin: 0;
     list-style-type: none;
     text-align: center;
 }
@@ -64,15 +64,11 @@ body {
     transform: scale(1.2);
 }
 
-.bookmark_options li:hover ~ * .hint{
-  visibility: visible;
-}
-
 #bookmarks_dropdown {
     display: none;
 }
 
-#bookmarks_dropdown:checked ~ .bookmark_options {
+.bookmark_options.active {
     height: 1.8em !important;
     visibility: visible !important;
 }
@@ -123,7 +119,7 @@ body {
     transform: scale(1.3);
 }
 
-.copyButton:hover ~ * .hint{
+.copyButton:hover * .hint{
   visibility: visible !important;
   width: auto;
 }
