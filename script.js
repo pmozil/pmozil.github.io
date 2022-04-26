@@ -64,8 +64,8 @@ function setBookmarkList(bookmarkListString=null) {
 function setBookmarks() {
     let marksStr = localStorage.getItem("bookmarks");
     let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;
-    let bookmarks = document.querySelector("#bookmarks");
     for(var i=0; i<marks.length; i++) {
+        let bookmarks = document.getElementById("bookmarks");
         let mark = document.createElement('li');
         mark.innerHTML=`
             <a
@@ -78,9 +78,16 @@ function setBookmarks() {
                 <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
                     <span class="hint">${marks[i]["name"]}</span>
                 </img>
-            </a>
-            `;
+            </a>`;
+
         bookmarks.appendChild(mark);
+        let bookmarks_delete_list = document.getElementById("bookmark_deletes");
+        let minus = document.createElement('li');
+        minus.innerHTML=`
+            <img src="images/minus.svg" alt="Minus svg">
+                <span class="hint">Delete bookmark</span>
+            </img>`;
+        bookmarks_delete_list.appendChild(minus);
     }
 }
 

@@ -43,13 +43,38 @@ body {
     width: 1em !important;
 }
 
+.bookmark_options {
+    height: 0;
+    margin: 0;
+    transition: 300ms all;
+    visibility: hidden;
+    padding: 0%;
+    list-style-type: none;
+    text-align: center;
+}
+
+.bookmark_options li {
+    display: inline-block;
+    transition: 300ms;
+    padding: 0 0.2em;
+    width: 2.4em;
+}
+
+.bookmark_options li:hover {
+    transform: scale(1.2);
+}
+
+.bookmark_options li:hover ~ * .hint{
+  visibility: visible;
+}
+
 #bookmarks_dropdown {
     display: none;
 }
 
 #bookmarks_dropdown:checked ~ .bookmark_options {
-    display: block;
-    margin-top: 1em !important;
+    height: 1.8em !important;
+    visibility: visible !important;
 }
 
 #bookmarks_dropdown:checked ~ .bookmarks_arrow {
