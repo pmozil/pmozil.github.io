@@ -32,6 +32,8 @@ Now just set `localhost` as your homepage
 
 # Screenshots
 
-![](screenshots/no-menu.png)
+![](screenshots/all-closed.png)
+
+![](screenshots/bookmarks.png)
 
 ![](screenshots/menu.png)
