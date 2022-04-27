@@ -1,4 +1,4 @@
-# Startpage - a cozy home page for web browsers
+# [Travlesh](https://travlesh.github.io) - a cozy home page for web browsers
 
 # Installation
 
