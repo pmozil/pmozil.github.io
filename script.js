@@ -72,8 +72,11 @@ function setBookmarks() {
     let marksStr = localStorage.getItem("bookmarks");
     let marks = marksStr!=null ? JSON.parse(marksStr) : defaultMarks;
     let bookmarks = document.getElementById("bookmarks");
+    bookmarks.innerHTML = '';
     let bookmark_delete_list = document.getElementById("bookmark_deletes");
+    bookmark_delete_list.innerHTML = '';
     let bookmark_edit_list = document.getElementById("bookmark_editors");
+    bookmark_edit_list.innerHTML = '';
     for(var i=0; i<marks.length; i++) {
         let mark = document.createElement('li');
         mark.innerHTML=`
@@ -91,12 +94,28 @@ function setBookmarks() {
 
         bookmarks.appendChild(mark);
         let minus = document.createElement('li');
-        minus.innerHTML=`<img src="images/minus.svg" alt="Minus svg"/>`;
+        minus.innerHTML=`
+            <img
+            src="images/minus.svg"
+            alt="Minus svg"
+            onclick="deleteBookmark('${marks[i]["name"]}')"/>`;
         bookmark_delete_list.appendChild(minus);
         let edit = document.createElement('li');
         edit.innerHTML=`<img src="images/edit.svg" alt="Edit svg"/>`;
         bookmark_edit_list.appendChild(edit);
     }
+}
+
+function resetBookmarks() {
+    localStorage.setItem("bookmarks", JSON.stringify(defaultMarks));
+    setBookmarks();
+}
+
+function deleteBookmark(bookmarkName) {
+    let list = JSON.parse(localStorage.getItem("bookmarks"));
+    list = list.filter( bookmark => {return bookmark["name"] != bookmarkName} );
+    localStorage.setItem("bookmarks", JSON.stringify(list));
+    setBookmarks();
 }
 
 function getSettingsJSONString() {
@@ -117,7 +136,7 @@ function getSettingsJSONString() {
     return JSON.stringify(settings);
 }
 
-function downloadSettingsAsJson(){
+function downloadSettingsAsJSON(){
   var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(getSettingsJSONString());
   var downloadAnchorNode = document.createElement('a');
   downloadAnchorNode.setAttribute("href",     dataStr);
