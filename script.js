@@ -147,6 +147,22 @@ function settingsFromJSON(settingsJSON=null) {
     location.reload();
 }
 
+function settingsFromFile() {
+    const reader = new FileReader();
+    reader.addEventListener("load", function () {
+        try{
+            settingsFromJSONStr(reader.result);
+        } catch(error) {
+            console.log(error);
+        }
+        setBackground();
+    }, false);
+
+    const input = document.querySelector("#settingsInput");
+    let settingsPath = input.files[0];
+    reader.readAsText(settingsPath);
+}
+
 function settingsFromURL() {
     let settingsURL = document.getElementsByName("jsonURL")[0].value;
     document.getElementsByName("jsonURL")[0].value = '';
@@ -302,7 +318,7 @@ function bgChange() {
         setBackground();
     }, false);
 
-    const input = document.querySelector("#input");
+    const input = document.querySelector("#backgroundInput");
     let imgPath = input.files[0];
     reader.readAsDataURL(imgPath);
 }

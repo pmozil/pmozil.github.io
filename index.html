@@ -86,11 +86,11 @@
             </form>
             <div class="container">
                 <input
-                        id="input"
+                        id="backgroundInput"
                         onchange="bgChange()"
                         style="display: none"
                         type="file">
-                    <label for="input">
+                    <label for="backgroundInput">
                         <img src="images/plus.svg" alt="Plus svg">
                             <span class="hint">Set wallpaper</span>
                         </img>
@@ -113,7 +113,7 @@
             Open settings
         </button>
         <span style="margin-top: 1em;">Import settings from URL</span>
-        <div>
+        <div class="flex">
             <form
                 autocomplete="off"
                 id="jsonURLForm"
@@ -122,6 +122,19 @@
                 >
                 <input type="text" name="jsonURL" placeholder="JSON URL here"/>
             </form>
+            <div class="container">
+                <input
+                        id="settingsInput"
+                        onchange="settingsFromFile()"
+                        style="display: none"
+                        type="file">
+                    <label for="settingsInput">
+                        <img src="images/plus.svg" alt="Plus svg">
+                            <span class="hint">Settings from json file</span>
+                        </img>
+                    </label>
+                </input>
+            </div>
         </div>
         <span>Download settings as json</span>
         <div>
