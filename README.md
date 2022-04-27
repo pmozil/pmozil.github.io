@@ -4,7 +4,7 @@
 
 Just set `https://travlesh.github.io/` as your firefox start page (Settings -> Home -> Homepage and new windows)
 
-You can also use [new tab override](https://duckduckgo.com/?q=new+tab+override) to override new tabs with `localhost`
+You can also use [new tab override](https://duckduckgo.com/?q=new+tab+override) to override new tabs with `https://tavlesh.github.io`
 
 # Hosting page locally
 
