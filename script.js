@@ -117,6 +117,16 @@ function getSettingsJSONString() {
     return JSON.stringify(settings);
 }
 
+function downloadSettingsAsJson(){
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(getSettingsJSONString());
+  var downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href",     dataStr);
+  downloadAnchorNode.setAttribute("download", "settings.json");
+  document.body.appendChild(downloadAnchorNode); // required for firefox
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
+
 function settingsFromJSONStr(settingsStr=null){
     let str = settingsStr;
     if(str==null){
