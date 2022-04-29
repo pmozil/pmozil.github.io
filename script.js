@@ -106,12 +106,17 @@ function setBookmarks() {
     }
 }
 
-function editBookmark(bookmarkName) {
+function editBookmark(bookmarkName="",new_bookmark=false) {
     document.getElementById("settings_div").innerHTML = `
         <div class="overlay settingsFadein" onclick="closeSettings()">
         </div>
         <div class="centerBox settingsFadein">
-            <h2>${bookmarkName}</h2>
+            <h2>${new_bookmark ? "Create bookmark" : bookmarkName}</h2>
+            <img 
+                src="images/save.svg"
+                onclick="saveBookmarkChanges('${bookmarkName}')"
+                class="saveIcon"
+                alt="Save svg"/>
             <img 
                 src="images/cross.svg"
                 onclick="closeSettings()"
@@ -129,6 +134,35 @@ function editBookmark(bookmarkName) {
             </div>
         </div>
     `;
+    if(!new_bookmark) {
+        setBookmarkValues(bookmarkName);
+    }
+}
+
+function setBookmarkValues(bookmarkName) {
+    let list = JSON.parse(localStorage.getItem("bookmarks"));
+    document.querySelector("#bookmark_name").value = list[bookmarkName]["name"];
+    document.querySelector("#bookmark_href").value = list[bookmarkName]["href"];
+    document.querySelector("#bookmark_icon").value = list[bookmarkName]["icon"];
+    document.querySelector("#bookmark_label").value = list[bookmarkName]["aria-label"];
+}
+
+function saveBookmarkChanges(bookmarkName) {
+    let name = document.querySelector("#bookmark_name").value;
+    let href = document.querySelector("#bookmark_href").value;
+    let icon = document.querySelector("#bookmark_icon").value;
+    let label= document.querySelector("#bookmark_label").value;
+    let list = JSON.parse(localStorage.getItem("bookmarks"));
+    if((bookmarkName!=name) && (name in list)){
+        alert(`Please delete ${name} first`);
+        setBookmarkValues(bookmarkName);
+        return;
+    }
+    delete(list[bookmarkName]);
+    list[name] = {"name": name, "href": href, "icon": icon, "aria-label": label};
+    localStorage.setItem("bookmarks", JSON.stringify(list));
+    setBookmarkValues(name);
+    setBookmarks();
 }
 
 function resetBookmarks() {
