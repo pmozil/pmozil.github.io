@@ -21,7 +21,7 @@ const defaultMarks = {
     "Youtube": {"name": "Youtube",
      "icon": "images/youtube.svg",
      "href":"https://youtube.com",
-     "aria-label":"Link to gitlab",
+     "aria-label":"Link to youtube",
     }
 }
 
