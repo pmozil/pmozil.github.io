@@ -20,7 +20,6 @@ body {
     justify-content: center;
     align-items: center;
     color: var(--foregroundColor);
-    font-family: 'Fira Code';
     overflow: hidden;
 }
 
@@ -135,6 +134,56 @@ body {
     text-align: justify !important;
 }
 
+.bookmarkInputs {
+    background: #4c566a;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: flex-start;
+    width: auto;
+    margin: 1em 2em;
+    padding: 2em 0;
+    flex: 1 1 auto;
+    gap: 1em;
+}
+
+.bookmarkInputs input[type="text"] {
+    margin-left: 8em;;
+}
+
+.settingsFadein {
+    animation-name: fadein;
+    animation-duration: 300ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear; 
+}
+
+.settingsFadein.fadeout {
+    animation-name: fadeout;
+}
+
+@keyframes fadein {
+    from {
+        filter: opacity(0%);
+    }
+    to {
+        filter: opacity(100%);
+    }
+}
+
+@keyframes fadeout {
+    from {
+        filter: opacity(100%);
+    }
+    to {
+        filter: opacity(0%);
+    }
+}
+
+.bookmarkInputs * input {
+    align-self: flex-start;
+}
+
 .text {
     background: #4c566a;
     border-radius: 10px;
@@ -144,10 +193,10 @@ body {
 
 .settingsCross {
     position: absolute;
-    left: 95%;
+    left: 90%;
     top: 1.6em;
-    height: 2em;
-    width: 2em;
+    height: 1.8em;
+    width: 1.8em;
     transition: all 300ms;
 }
 
@@ -216,6 +265,7 @@ body {
     display: flex;
     flex-direction: column;
     background: var(--bgRGBA);
+    gap: 0 1em;
     width: 16em;
     padding: 0 2em;
     position: fixed;
@@ -226,7 +276,7 @@ body {
 
 .sidebar * span {
     color: var(--foregroundColor);
-    font-size: 0.8em;
+    font-size: 0.8em !important;
     width: 100%;
     overflow: hidden;
 }
@@ -317,8 +367,9 @@ form > * {
     margin-bottom: 0.8em;
 }
 
-form > input[type="text"] {
+input[type="text"] {
     background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
     height: 2.4em;
     width: auto;
     font-size: 13px;
@@ -331,7 +382,7 @@ form > input[type="text"] {
     box-shadow: 0.1em 0.1em 0.2em var(--fgRGBA);
 }
 
-form > input[type="text"]:focus {
+input[type="text"]:focus {
     border: 2px solid var(--foregroundColor) !important;
 }
 

@@ -1,27 +1,29 @@
 setInterval(displayClock, 100);
 
-const defaultMarks = [
-    {"name": "Reddit",
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const defaultMarks = {
+    "Reddit": {"name": "Reddit",
      "href":"https://reddit.com",
      "icon": "images/reddit.svg",
      "aria-label":"Link to reddit",
     },
-    {"name": "Github",
+    "Github": {"name": "Github",
      "icon": "images/github.svg",
      "href":"https://github.com",
      "aria-label":"Link to github",
     },
-    {"name": "Gitlab",
+    "Gitlab": {"name": "Gitlab",
      "icon": "images/gitlab.svg",
      "href":"https://gitlab.com",
      "aria-label":"Link to gitlab",
     },
-    {"name": "Youtube",
+    "Youtube": {"name": "Youtube",
      "icon": "images/youtube.svg",
      "href":"https://youtube.com",
      "aria-label":"Link to gitlab",
     }
-]
+}
 
 if(localStorage.getItem("greet")==null) {
     localStorage.setItem("greet", "Hi there!");
@@ -52,15 +54,6 @@ function setDefaults() {
     location.reload();
 }
 
-function setBookmarkList(bookmarkListString=null) {
-    let marks = bookmarkListString;
-    if(marks=null) {
-        return localStorage.getItem("bookmarks");
-    }
-    localStorage.setItem("bookmarks", bookmarkList);
-    return JSON.stringify(bookmarkList);
-}
-
 function toggleOptions() {
     var options = document.querySelectorAll('.bookmark_options');
     for (var i = 0; i < options.length; i++) {
@@ -77,7 +70,7 @@ function setBookmarks() {
     bookmark_delete_list.innerHTML = '';
     let bookmark_edit_list = document.getElementById("bookmark_editors");
     bookmark_edit_list.innerHTML = '';
-    for(var i=0; i<marks.length; i++) {
+    for(i in marks) {
         let mark = document.createElement('li');
         mark.innerHTML=`
             <a
@@ -87,7 +80,10 @@ function setBookmarks() {
                 rel="noreferrer noopener"
                 aria-label="${marks[i]["aria-label"]}"
                 >
-                <img src="${marks[i]["icon"]}" alt="${marks[i]["name"]} svg">
+                <img
+                    src="${marks[i]["icon"]}"
+                    alt="${marks[i]["name"]} svg"
+                    onerror=this.src="images/error.svg">
                     <span class="hint">${marks[i]["name"]}</span>
                 </img>
             </a>`;
@@ -101,9 +97,38 @@ function setBookmarks() {
             onclick="deleteBookmark('${marks[i]["name"]}')"/>`;
         bookmark_delete_list.appendChild(minus);
         let edit = document.createElement('li');
-        edit.innerHTML=`<img src="images/edit.svg" alt="Edit svg"/>`;
+        edit.innerHTML=`
+            <img
+                src="images/edit.svg"
+                alt="Edit svg"
+                onclick="editBookmark('${marks[i]["name"]}')"/>`;
         bookmark_edit_list.appendChild(edit);
     }
+}
+
+function editBookmark(bookmarkName) {
+    document.getElementById("settings_div").innerHTML = `
+        <div class="overlay settingsFadein" onclick="closeSettings()">
+        </div>
+        <div class="centerBox settingsFadein">
+            <h2>${bookmarkName}</h2>
+            <img 
+                src="images/cross.svg"
+                onclick="closeSettings()"
+                class="settingsCross"
+                alt="Cross svg"/>
+            <div class="bookmarkInputs">
+            <span>Bookmark name</span>
+            <input type="text" id="bookmark_name" placeholder="Bookmark name"></input>
+            <span>Bookmark link</span>
+            <input type="text" id="bookmark_href" placeholder="Bookmark link"></input>
+            <span>Bookmark icon</span>
+            <input type="text" id="bookmark_icon" placeholder="Bokmark icon"></input>
+            <span>Bookmark label</span>
+            <input type="text" id="bookmark_label" placeholder="Bookmark label"></input>
+            </div>
+        </div>
+    `;
 }
 
 function resetBookmarks() {
@@ -113,7 +138,7 @@ function resetBookmarks() {
 
 function deleteBookmark(bookmarkName) {
     let list = JSON.parse(localStorage.getItem("bookmarks"));
-    list = list.filter( bookmark => {return bookmark["name"] != bookmarkName} );
+    delete(list[bookmarkName]);
     localStorage.setItem("bookmarks", JSON.stringify(list));
     setBookmarks();
 }
@@ -208,7 +233,6 @@ function settingsOptionsClicked() {
     let base = JSON.parse(getSettingsJSONString());
     let str = "";
     base["bookmarks"] = "<br/>" + base["bookmarks"].replaceAll("},", "},<br/>") + "<br/>";
-    console.log(base["bookmarks"]);
     for (var key in base) {
         str += `<span><b>${key}</b>: ${base[key]}</span><br/>\n`
     }
@@ -217,9 +241,9 @@ function settingsOptionsClicked() {
 
 function openSettings() {
     document.getElementById("settings_div").innerHTML = `
-        <div class="overlay" onclick="closeSettings()">
+        <div class="overlay settingsFadein" onclick="closeSettings()">
         </div>
-        <div class="centerBox">
+        <div class="centerBox settingsFadein">
             <h2>Settings Viewer</h2>
 
             <img 
@@ -242,8 +266,19 @@ function openSettings() {
     settingsOptionsClicked();
 }
 
+function toggleFadein() {
+    var options = document.querySelectorAll('.settingsFadein');
+    for (var i = 0; i < options.length; i++) {
+        options[i].classList.toggle('fadeout');
+    }
+}
+
 function closeSettings() {
-    document.getElementById("settings_div").innerHTML = '';
+    toggleFadein();
+    // let the div fade out
+    sleep(250).then( () => {
+        document.getElementById("settings_div").innerHTML = '';
+    });
 }
 
 function settingsOptionClosed() {
@@ -347,4 +382,5 @@ function pageLoaded() {
     setBookmarks();
     document.querySelector("#greeting").textContent = localStorage.getItem("greet");
     document.querySelector("#search").action = localStorage.getItem("search");
+    document.querySelector("#bookmarks_dropdown").checked = false;
 }
