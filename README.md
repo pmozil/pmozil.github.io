@@ -32,6 +32,8 @@ Now just set `localhost` as your homepage
 
 # Screenshots
 
+### The background is [here](https://github.com/pmozil/dotfiles)
+
 ![](screenshots/all-closed.png)
 
 ![](screenshots/bookmarks.png)
